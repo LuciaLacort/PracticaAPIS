@@ -1,0 +1,57 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Carga de fichero de video</title>
+</head>
+<body>
+    <h1>Carga de fichero de video</h1>
+    <button id="seleccionarArchivo">Seleccionar archivo</button>
+    <video id="reproductor" style="display:none" controls></video>
+
+    <script>
+        document.getElementById("seleccionarArchivo").addEventListener("click", function() {
+            var input = document.createElement("input");
+            input.type = "file";
+            input.accept = "video/*";
+            input.onchange = function(e) {
+                var file = e.target.files[0];
+                var video = document.getElementById("reproductor");
+                video.src = URL.createObjectURL(file);
+                video.style.display = "block";
+                alert("Video cargando...");
+                video.play();
+                document.getElementById("reproductor-container").style.display = "block"; 
+            }
+            input.click();
+        });
+    </script>
+
+    <div id="reproductor-container" style="display:none">
+        <button id="play">Reproducir</button>
+        <button id="pause">Pausa</button>
+        <button id="subirVolumen">Subir Volumen</button>
+        <button id="bajarVolumen">Bajar Volumen</button>
+    </div>
+
+    <script>
+        var video = document.getElementById("reproductor");
+        document.getElementById("play").addEventListener("click", function() {
+            video.play();
+        });
+        document.getElementById("pause").addEventListener("click", function() {
+            video.pause();
+        });
+        document.getElementById("subirVolumen").addEventListener("click", function() {
+            if (video.volume < 1) {
+                video.volume += 0.1;
+            }
+        });
+        document.getElementById("bajarVolumen").addEventListener("click", function() {
+            if (video.volume > 0) {
+                video.volume -= 0.1;
+            }
+        });
+    </script>
+
+</body>
+</html>
